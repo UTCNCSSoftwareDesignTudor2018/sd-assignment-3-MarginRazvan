@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="writers")
 public class Writer {
@@ -24,6 +26,7 @@ public class Writer {
 	
 	
 	@OneToMany(mappedBy="writer")
+	@JsonIgnore
 	private List<Article> articles;
 	
 	@Column
@@ -92,6 +95,12 @@ public class Writer {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	@Override
+	public String toString() {
+		return "Writer [writerId=" + writerId + ", name=" + name + ", email=" + email
+				+ ", password=" + password + "]";
 	}
 	
 	

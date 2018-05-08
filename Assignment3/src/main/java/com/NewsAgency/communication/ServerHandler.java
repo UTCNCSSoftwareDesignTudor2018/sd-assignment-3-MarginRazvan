@@ -26,7 +26,7 @@ public class ServerHandler implements Runnable {
 			try {
 				while(true)
 				{
-					new ClientHandler(server.accept()).run();
+					new Thread(new ClientHandler(server.accept())).start();
 				}
 				
 			} finally {
