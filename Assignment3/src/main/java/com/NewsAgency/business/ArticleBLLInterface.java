@@ -7,16 +7,15 @@ import org.springframework.stereotype.Service;
 
 import com.NewsAgency.persistence.entity.Article;
 
-@Service
+
 public interface ArticleBLLInterface {
 	
-	public List<Article> findAll();
+	public List<Article> getAll();
 	
 	
 	public void deleteArticle(Integer id);
 	
 	public void saveArticle(Article article);
 
-	Optional<Article> findById(Integer id);
 
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,19 +13,21 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="articles")
 public class Article {
 	
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column
-	private Integer articleId;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Integer id;
 	
 	
 	@ManyToOne
-	@JoinColumn(name="writerId")
+	@JoinColumn(name="writer_id")
+	@JsonIgnore
 	private Writer writer;
 	
 	@Column
@@ -41,21 +44,21 @@ public class Article {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Article(Integer articleId, Writer writer, String title, String articleAbstract, String body) {
+	public Article(Integer id, Writer writer, String title, String articleAbstract, String body) {
 		super();
-		this.articleId = articleId;
+		this.id = id;
 		this.writer = writer;
 		this.title = title;
 		this.articleAbstract = articleAbstract;
 		this.body = body;
 	}
 
-	public Integer getArticleId() {
-		return articleId;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setArticleId(Integer articleId) {
-		this.articleId = articleId;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public Writer getWriter() {
@@ -89,6 +92,14 @@ public class Article {
 	public void setBody(String body) {
 		this.body = body;
 	}
+
+	@Override
+	public String toString() {
+		return "Article [id=" + id  + ", title=" + title + ", articleAbstract=" + articleAbstract
+				+ ", body=" + body + "]";
+	}
+
+	
 
 	
 	

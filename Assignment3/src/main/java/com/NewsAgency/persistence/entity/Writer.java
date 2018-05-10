@@ -3,8 +3,10 @@ package com.NewsAgency.persistence.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,11 +23,11 @@ public class Writer {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column
-	private Integer writerId;
+	@Column(name="id")
+	private Integer id;
 	
 	
-	@OneToMany(mappedBy="writer")
+	@OneToMany(mappedBy="writer",cascade=CascadeType.ALL,orphanRemoval=true,fetch=FetchType.LAZY)
 	@JsonIgnore
 	private List<Article> articles;
 	
@@ -44,29 +46,25 @@ public class Writer {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Writer(String name, String email, String password) {
+	public Writer(Integer id, List<Article> articles, String name, String email, String password) {
 		super();
-		this.articles = new ArrayList<Article>();
+		this.id = id;
+		this.articles = articles;
 		this.name = name;
 		this.email = email;
 		this.password = password;
 	}
 
-	public Integer getWriterId() {
-		return writerId;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setWriterId(Integer writerId) {
-		this.writerId = writerId;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public List<Article> getArticles() {
 		return articles;
-	}
-	
-	public void addArticle(Article article)
-	{
-		this.articles.add(article);
 	}
 
 	public void setArticles(List<Article> articles) {
@@ -99,9 +97,10 @@ public class Writer {
 
 	@Override
 	public String toString() {
-		return "Writer [writerId=" + writerId + ", name=" + name + ", email=" + email
-				+ ", password=" + password + "]";
+		return "Writer [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + "]";
 	}
+
+	
 	
 	
 	

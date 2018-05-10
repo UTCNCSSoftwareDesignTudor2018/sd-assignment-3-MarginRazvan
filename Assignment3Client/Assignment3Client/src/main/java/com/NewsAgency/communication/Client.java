@@ -1,16 +1,21 @@
 package com.NewsAgency.communication;
 
 import java.io.BufferedReader;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.NewsAgency.communication.handlers.LoginRequest;
 import com.NewsAgency.communication.handlers.LoginResponse;
+import com.NewsAgency.communication.handlers.ViewArticlesRequest;
+import com.NewsAgency.communication.handlers.ViewArticlesResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+import com.NewsAgency.entity.*;
 public class Client implements Runnable{
 	
 	
@@ -23,6 +28,8 @@ public class Client implements Runnable{
 	private ObjectMapper objectMapper;
 	
 	private String clientStatus;
+	private boolean articlesChanged;
+	private List<Article> articles;
 	
 	
 
@@ -41,6 +48,8 @@ public class Client implements Runnable{
 		super();
 		this.socket = socket;
 		this.clientStatus="Undefined";
+		articlesChanged = false;
+		articles = new ArrayList<Article>();
 		objectMapper = new ObjectMapper();
 		try {
 			this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -57,6 +66,18 @@ public class Client implements Runnable{
 		LoginRequest request = new LoginRequest(email, password);
 		try {
 			System.out.println(request.toString());
+			this.out.println(objectMapper.writeValueAsString(request));
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void sendViewArticlesRequest()
+	{
+		ViewArticlesRequest request = new ViewArticlesRequest();
+		System.out.println(request.toString());
+		try {
 			this.out.println(objectMapper.writeValueAsString(request));
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
@@ -92,6 +113,13 @@ public class Client implements Runnable{
 					}
 					System.out.println(clientStatus);
 				}
+				
+				if (responseString.contains("viewArticles"))
+				{
+					ViewArticlesResponse response = objectMapper.readValue(responseString, ViewArticlesResponse.class);
+					setArticles(response.getArticles());
+					setArticlesChanged(true);
+				}
 			}
 			
 
@@ -115,6 +143,46 @@ public class Client implements Runnable{
 
 	public void setClientStatus(String clientStatus) {
 		this.clientStatus = clientStatus;
+	}
+
+
+
+
+
+
+
+	public boolean isArticlesChanged() {
+		return articlesChanged;
+	}
+
+
+
+
+
+
+
+	public void setArticlesChanged(boolean clientsChanged) {
+		this.articlesChanged = clientsChanged;
+	}
+
+
+
+
+
+
+
+	public List<Article> getArticles() {
+		return articles;
+	}
+
+
+
+
+
+
+
+	public void setArticles(List<Article> articles) {
+		this.articles = articles;
 	}
 	
 	

@@ -57,7 +57,29 @@ public class LoginController {
 
 	private void addReaderoginListener() {
 		// TODO Auto-generated method stub
-		
+		loginView.addLoginReaderButton(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				System.out.println("buton apasat");
+				
+				
+				
+				
+				//boolean status=client.isArticlesChanged();
+				//client.sendViewArticlesRequest();
+				//while(client.isArticlesChanged()==status)
+				//{
+				//	System.out.print("");
+				//}
+				//for (int i=0; i< client.getArticles().size();i++)
+				//{
+				//	System.out.println(i+' '+client.getArticles().get(i).toString());
+				//}
+				//client.setArticlesChanged(false);
+				
+			}
+		});
 	}
 	
 	
