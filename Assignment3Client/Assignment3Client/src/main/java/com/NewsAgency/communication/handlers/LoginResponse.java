@@ -1,10 +1,12 @@
 package com.NewsAgency.communication.handlers;
 
+import com.NewsAgency.entity.Writer;
+
 public class LoginResponse {
 
 		
 		private String response;
-		
+		private Writer writer;
 		
 
 		public LoginResponse(String response) {
@@ -22,6 +24,14 @@ public class LoginResponse {
 
 		public void setResponse(String response) {
 			this.response = response;
+		}
+
+		public Writer getWriter() {
+			return writer;
+		}
+
+		public void setWriter(Writer writer) {
+			this.writer = writer;
 		}
 		
 		

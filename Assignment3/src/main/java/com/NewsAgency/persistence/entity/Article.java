@@ -21,13 +21,11 @@ public class Article {
 	
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
-	
 	
 	@ManyToOne
 	@JoinColumn(name="writer_id")
-	@JsonIgnore
 	private Writer writer;
 	
 	@Column
@@ -47,6 +45,14 @@ public class Article {
 	public Article(Integer id, Writer writer, String title, String articleAbstract, String body) {
 		super();
 		this.id = id;
+		this.writer = writer;
+		this.title = title;
+		this.articleAbstract = articleAbstract;
+		this.body = body;
+	}
+
+	public Article(Writer writer, String title, String articleAbstract, String body) {
+		// TODO Auto-generated constructor stub
 		this.writer = writer;
 		this.title = title;
 		this.articleAbstract = articleAbstract;

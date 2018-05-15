@@ -41,7 +41,9 @@ public class LoginController {
 				}
 				if (client.getClientStatus().equals("OK"))
 				{
-					loginView.showErrorMessage("You logged in");
+					
+					WriterController writerController= new WriterController(client,client.getWriter());
+					loginView.setVisible(false);
 				}
 				else if (client.getClientStatus().equals("Invalid Data"))
 				{
@@ -63,20 +65,8 @@ public class LoginController {
 				// TODO Auto-generated method stub
 				System.out.println("buton apasat");
 				
-				
-				
-				
-				//boolean status=client.isArticlesChanged();
-				//client.sendViewArticlesRequest();
-				//while(client.isArticlesChanged()==status)
-				//{
-				//	System.out.print("");
-				//}
-				//for (int i=0; i< client.getArticles().size();i++)
-				//{
-				//	System.out.println(i+' '+client.getArticles().get(i).toString());
-				//}
-				//client.setArticlesChanged(false);
+				ReaderController readerController= new ReaderController(client);
+				loginView.setVisible(false);
 				
 			}
 		});

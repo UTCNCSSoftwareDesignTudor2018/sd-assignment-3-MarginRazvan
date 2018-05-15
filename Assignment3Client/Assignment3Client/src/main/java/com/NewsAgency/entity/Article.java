@@ -8,7 +8,7 @@ package com.NewsAgency.entity;
 
 public class Article {
 	
-	private Integer articleId;
+	private Integer id;
 	
 	private Writer writer;
 	
@@ -28,19 +28,27 @@ public class Article {
 
 	public Article(Integer articleId, Writer writer, String title, String articleAbstract, String body) {
 		super();
-		this.articleId = articleId;
+		this.id = articleId;
+		this.writer = writer;
+		this.title = title;
+		this.articleAbstract = articleAbstract;
+		this.body = body;
+	}
+	
+	public Article(Writer writer, String title, String articleAbstract, String body) {
+		super();
 		this.writer = writer;
 		this.title = title;
 		this.articleAbstract = articleAbstract;
 		this.body = body;
 	}
 
-	public Integer getArticleId() {
-		return articleId;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setArticleId(Integer articleId) {
-		this.articleId = articleId;
+	public void setId(Integer articleId) {
+		this.id = articleId;
 	}
 
 	public Writer getWriter() {

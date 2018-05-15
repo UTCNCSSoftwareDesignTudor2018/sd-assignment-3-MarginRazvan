@@ -48,6 +48,11 @@ public class WriterBLL implements WriterBLLInterface {
 		//articleBLL.deleteArticle(id);
 	}
 	
+	@Override
+	public Writer findByEmail(String email)
+	{
+		return writerRepository.findByEmail(email);
+	}
 	
 
 }

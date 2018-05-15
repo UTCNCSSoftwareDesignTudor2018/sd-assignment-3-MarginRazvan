@@ -1,7 +1,7 @@
 package com.NewsAgency.communication.handlers;
 
 public class LoginRequest {
-	private String email;
+	private String emailLogin;
 	private String password;
 	
 	
@@ -10,13 +10,13 @@ public class LoginRequest {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public LoginRequest(String email, String password) {
+	public LoginRequest(String emailLogin, String password) {
 		super();
-		this.email = email;
+		this.emailLogin = emailLogin;
 		this.password = password;
 	}
-	public String getEmail() {
-		return email;
+	public String getEmailLogin() {
+		return emailLogin;
 	}
 	public String getPassword() {
 		return password;

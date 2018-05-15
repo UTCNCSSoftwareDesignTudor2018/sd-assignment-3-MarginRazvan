@@ -8,8 +8,10 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.TableColumnModelListener;
@@ -28,8 +30,8 @@ public class ReaderView extends JFrame {
 
 
 
-	public ReaderView(Object[][] data) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	public ReaderView() {
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 570, 477);
 		getContentPane().setLayout(null);
 		
@@ -38,10 +40,14 @@ public class ReaderView extends JFrame {
 		JPanel panel = new JPanel();
 		panel.setBounds(10, 23, 534, 311);
 		getContentPane().add(panel);
+
 		
-		String[] columns = {"Id","Title","Abstract","Writer"};
-		table = new JTable(data,columns);
+		table = new JTable();
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table.setFillsViewportHeight(true);
+		
 		panel.add(table);
+		
 		
 		
 		JLabel lblNewLabel = new JLabel("Article Id");
@@ -74,8 +80,13 @@ public class ReaderView extends JFrame {
 		return textFieldArticleId.getText();
 	}
 	
-	public void updateTable(Object[][] data)
+	public void updateTable(DefaultTableModel tableModel)
 	{
-		
+		this.table.setModel(tableModel);
+	}
+	
+	public void showErrorMessage(String text)
+	{
+		JOptionPane.showMessageDialog(null, text);
 	}
 }

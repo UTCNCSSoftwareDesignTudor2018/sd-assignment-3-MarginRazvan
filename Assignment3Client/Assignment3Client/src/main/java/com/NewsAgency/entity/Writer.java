@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Writer {
 	
 
-	private Integer writerId;
+	private Integer id;
 	
 	@JsonIgnore
 	private List<Article> articles;
@@ -37,12 +37,12 @@ public class Writer {
 		this.password = password;
 	}
 
-	public Integer getWriterId() {
-		return writerId;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setWriterId(Integer writerId) {
-		this.writerId = writerId;
+	public void setId(Integer writerId) {
+		this.id = writerId;
 	}
 
 	public List<Article> getArticles() {
@@ -84,7 +84,7 @@ public class Writer {
 
 	@Override
 	public String toString() {
-		return "Writer [writerId=" + writerId + ", name=" + name + ", email=" + email
+		return "Writer [writerId=" + id + ", name=" + name + ", email=" + email
 				+ ", password=" + password + "]";
 	}
 	

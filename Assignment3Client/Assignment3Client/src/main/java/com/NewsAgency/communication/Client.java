@@ -8,7 +8,10 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
+import com.NewsAgency.communication.handlers.ArticleDeleteRequest;
+import com.NewsAgency.communication.handlers.ArticleSaveRequest;
 import com.NewsAgency.communication.handlers.LoginRequest;
 import com.NewsAgency.communication.handlers.LoginResponse;
 import com.NewsAgency.communication.handlers.ViewArticlesRequest;
@@ -16,7 +19,7 @@ import com.NewsAgency.communication.handlers.ViewArticlesResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.NewsAgency.entity.*;
-public class Client implements Runnable{
+public class Client extends Observable implements Runnable{
 	
 	
 	
@@ -30,6 +33,7 @@ public class Client implements Runnable{
 	private String clientStatus;
 	private boolean articlesChanged;
 	private List<Article> articles;
+	private Writer writer;
 	
 	
 
@@ -37,12 +41,6 @@ public class Client implements Runnable{
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
-
-
-
-
 
 	public Client(Socket socket) {
 		super();
@@ -84,6 +82,33 @@ public class Client implements Runnable{
 			e.printStackTrace();
 		}
 	}
+	
+	public void saveArticleRequest(Article article)
+	{
+		ArticleSaveRequest request= new ArticleSaveRequest(article);
+		System.out.println(request.toString());
+		
+		try {
+			this.out.println(objectMapper.writeValueAsString(request));
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+
+	public void deleteArticleRequest(Integer id) {
+		// TODO Auto-generated method stub
+		ArticleDeleteRequest articleDeleteRequest= new ArticleDeleteRequest(id);
+		try {
+			this.out.println(objectMapper.writeValueAsString(articleDeleteRequest));
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 
 
 
@@ -106,15 +131,15 @@ public class Client implements Runnable{
 					if (response.getResponse().equals("success"))
 					{
 						this.clientStatus = "OK";
+						this.writer= response.getWriter();
 					}
 					else
 					{
 						this.clientStatus = "Invalid Data";
 					}
-					System.out.println(clientStatus);
 				}
 				
-				if (responseString.contains("viewArticles"))
+				if (responseString.contains("articles"))
 				{
 					ViewArticlesResponse response = objectMapper.readValue(responseString, ViewArticlesResponse.class);
 					setArticles(response.getArticles());
@@ -135,61 +160,45 @@ public class Client implements Runnable{
 		return clientStatus;
 	}
 
-
-
-
-
-
+	public Writer getWriter() {
+		return writer;
+	}
 
 	public void setClientStatus(String clientStatus) {
 		this.clientStatus = clientStatus;
 	}
 
-
-
-
-
-
-
 	public boolean isArticlesChanged() {
 		return articlesChanged;
 	}
-
-
-
-
-
-
 
 	public void setArticlesChanged(boolean clientsChanged) {
 		this.articlesChanged = clientsChanged;
 	}
 
-
-
-
-
-
-
 	public List<Article> getArticles() {
 		return articles;
 	}
-
-
-
-
-
-
-
+	
+	
 	public void setArticles(List<Article> articles) {
+		setChanged();
 		this.articles = articles;
+		notifyObservers(articles);
+		clearChanged();
 	}
 	
-	
-
-	
-	
-	
-	
-
+	public Article getArticle(Integer id)
+	{
+		for (Article article: this.articles)
+		{
+			if (article.getId()==id)
+			{
+				return article;
+			}
+		}
+		
+		return null;
+		
+	}
 }
