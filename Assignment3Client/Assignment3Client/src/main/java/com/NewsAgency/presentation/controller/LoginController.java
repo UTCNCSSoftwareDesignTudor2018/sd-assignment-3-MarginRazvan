@@ -63,7 +63,6 @@ public class LoginController {
 			
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				System.out.println("buton apasat");
 				
 				ReaderController readerController= new ReaderController(client);
 				loginView.setVisible(false);

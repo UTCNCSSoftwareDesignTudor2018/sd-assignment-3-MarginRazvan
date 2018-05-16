@@ -11,9 +11,6 @@ public interface WriterBLLInterface {
 	
 	public boolean login(String username,String password);
 	
-	public void saveArticle(Article article);
-	
-	public void deleteArticle(Integer id);
 	
 	public Writer findByEmail(String email);
 	

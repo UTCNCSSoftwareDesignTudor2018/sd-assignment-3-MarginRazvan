@@ -123,7 +123,6 @@ public class ClientHandler implements Runnable,Observer {
 	public void update(Observable arg0, Object arg1) {
 		// TODO Auto-generated method stub
 		try {
-			System.out.println("SERVER Si o dat seama ca s o facut modificari");
 			List<Article> articles = requester.viewArticles();
 			ViewArticlesResponse response = responder.getViewArticlesResponse(articles);
 			out.println(objectMapper.writeValueAsString(response));

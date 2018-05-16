@@ -19,8 +19,6 @@ public class WriterBLL implements WriterBLLInterface {
 	@Autowired
 	private WriterRepository writerRepository;
 	
-	//@Autowired
-	//private ArticleBLLInterface articleBLL;
 	
 	
 	@Override
@@ -36,16 +34,6 @@ public class WriterBLL implements WriterBLLInterface {
 
 		}
 		return false;
-	}
-
-	@Override
-	public void saveArticle(Article article) {
-		//articleBLL.saveArticle(article);
-	}
-
-	@Override
-	public void deleteArticle(Integer id) {
-		//articleBLL.deleteArticle(id);
 	}
 	
 	@Override

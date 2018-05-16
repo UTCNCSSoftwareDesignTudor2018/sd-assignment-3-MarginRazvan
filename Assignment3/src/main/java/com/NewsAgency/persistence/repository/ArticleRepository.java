@@ -20,6 +20,6 @@ public interface ArticleRepository extends JpaRepository<Article, Integer> {
 	public Optional<Article> findById(Integer id);
 
 	public List<Article> findAll();
-	//public Optional<Article> findById(Integer id);
+
 
 }

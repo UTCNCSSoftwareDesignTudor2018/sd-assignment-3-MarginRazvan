@@ -31,16 +31,7 @@ public class ReaderController implements Observer {
 		
 	}
 	
-	private void sendViewArticlesRequest()
-	{
-		boolean status=client.isArticlesChanged();
-		client.sendViewArticlesRequest();
-		while(client.isArticlesChanged()==status)
-		{
-			System.out.print("");
-		}
-		this.updateTable(client.getArticles());
-	}
+
 	
 	
 	private void updateTable(List<Article> articles) {
@@ -81,10 +72,20 @@ public class ReaderController implements Observer {
 			}
 		});
 	}
+	
+	private void sendViewArticlesRequest()
+	{
+		boolean status=client.isArticlesChanged();
+		client.sendViewArticlesRequest();
+		while(client.isArticlesChanged()==status)
+		{
+			System.out.print("");
+		}
+		this.updateTable(client.getArticles());
+	}
 
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
-		System.out.println("CLIENT Update pe view");
 		this.updateTable((List<Article>) arg);
 		
 	}
